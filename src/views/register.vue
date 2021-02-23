@@ -44,7 +44,11 @@ export default {
       let rulg = /^.{6,16}$/;
       if (rulg.test(this.modal.name) && rulg.test(this.modal.username) && rulg.test(this.modal.password)) {
         const res = await this.$http.post("/register",this.modal);
-        this.$msg.success()
+        if(res.data.code === 200) {
+            this.$msg.success('注册成功')
+        } else {
+            this.$msg.fail(res.data.msg)
+        }
       } else {
         this.$msg.fail('格式不正确，请重新输入')
       }
